@@ -17,7 +17,7 @@
 </template>
 
 <script>
-
+// test
 import SideBar from "@/components/SideBar";
 export default {
   name: 'App',
