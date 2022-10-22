@@ -1,30 +1,73 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <v-app>
+    <div class="app">
+
+      <SideBar class="elevation-4" style="z-index: 3; box-shadow: black"/>
+      <router-view style="z-index: 1"/>
+    </div>
+    <v-sheet
+        class="bg-sheet"
+        color="#5777FAFF"
+        height="15%"
+        width="100%"
+    >
+    </v-sheet>
+  </v-app>
+
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+
+import SideBar from "@/components/SideBar";
+export default {
+  name: 'App',
+  components: {SideBar},
+  data: () => ({
+    //
+  }),
+}
+</script>
+<style lang="scss">
+.bg-sheet {
+  position: absolute;
+  z-index: 0;
 }
 
-nav {
-  padding: 30px;
+:root {
+  --primary: #5777FA;
+  --primary-alt: #22c55e;
+  --grey: #64748b;
+  --dark: #1D2336;
+  --dark-alt: #334155;
+  --light: #f1f5f9;
+  --lightbg: #f2f3f8;
+  --sidebar-width: 300px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Fira sans', sans-serif;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+button {
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
 }
-
-nav a.router-link-exact-active {
-  color: #42b983;
+.app {
+  display: flex;
+  main {
+    flex: 1 1 0;
+    padding: 2rem;
+    @media (max-width: 1024px) {
+      padding-left: 6rem;
+    }
+  }
+}
+.app {
+  background: var(--lightbg);
 }
 </style>
