@@ -8,7 +8,7 @@
     <v-sheet
         class="bg-sheet"
         color="#5777FAFF"
-        height="15%"
+        height="18%"
         width="100%"
     >
     </v-sheet>

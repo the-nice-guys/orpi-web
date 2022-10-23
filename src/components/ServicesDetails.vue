@@ -20,7 +20,7 @@
 import LineChart from "@/components/LineChart";
 
 export default {
-  name: "EnvironmentDetails",
+  name: "ServicesDetails",
   components: {
     LineChart,
   },

@@ -6,7 +6,7 @@
           <account-cloud class="ma-2 mr-16 elevation-2"/>
       </v-row>
       <v-row class="mt-8" justify="start">
-        <v-col cols="2" xs12 md6 lg6 xl4 >
+        <v-col xs12 md6 lg6 xl4 >
           <v-card
               elevation="2"
               min-width="300"
@@ -15,33 +15,40 @@
           >
             <v-card-title>Environments</v-card-title>
 
-            <v-list>
+            <v-list
+              v-model="selectedEnvIndex"
+            >
               <v-list-item
                   v-for="item in environments"
                   :key="item.title"
                   :value="item"
                   @click="selectEnvironment(item)"
                   active-color="#5777FAFF"
+
               >
                 <template v-slot:prepend>
                   <v-icon :icon="item.icon"></v-icon>
                 </template>
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
-                <v-list-item-content>
                   <v-list-item-subtitle>{{ item.description }}</v-list-item-subtitle>
-                </v-list-item-content>
               </v-list-item>
             </v-list>
 
           </v-card>
         </v-col>
 
-        <v-col >
-          <v-row class="ma-2 mt-0" justify="center">
-            <EnvironmentDetails :env="selectedEnvironment" id="1" width="500" height="300"/>
+        <v-col cols="8" xs12 md6 lg6 xl4 >
+          <v-row class="mb-2" no-gutters>
+            <v-col  class="mx-2">
+              <Hosts :env="selectedEnvironment" v-on:select-host="selectHost"/>
+            </v-col>
+            <v-col class="mx-2">
+              <HostServices :host="selectedHost"/>
+            </v-col>
           </v-row>
-          <v-row class="ma-2" justify="center">
-            <EnvironmentDetails :env="environments[1]" id="2" width="500" height="500"/>
+
+          <v-row class="ma-2" no-gutters>
+            <EnvHistory class="my-2"/>
           </v-row>
         </v-col>
       </v-row>
@@ -54,14 +61,17 @@ import { defineComponent } from 'vue';
 
 // Components
 import accountCloud from "@/components/AccountCloud";
-import EnvironmentDetails from "@/views/EnvironmentDetails";
-// import LineChart from "@/components/LineChart";
+import Hosts from "@/components/Hosts";
+import HostServices from "@/components/HostServices";
+import EnvHistory from "@/components/EnvHistory";
+
 export default defineComponent({
   name: 'OverviewView',
 
   components: {
-    EnvironmentDetails,
-    // LineChart,
+    EnvHistory,
+    HostServices,
+    Hosts,
     accountCloud
   },
   data: () => ({
@@ -70,6 +80,26 @@ export default defineComponent({
         name: 'Production',
         description: 'Production environment',
         icon: 'mdi-cloud-check-outline',
+        hosts: [
+          {
+            name: 'Host 1',
+            description: 'Host 1 description',
+            icon: 'mdi-server',
+            status: 'online'
+          },
+          {
+            name: 'Host 2',
+            description: 'Host 2 description',
+            icon: 'mdi-server',
+            status: 'online'
+          },
+          {
+            name: 'Host 3',
+            description: 'Host 3 description',
+            icon: 'mdi-server',
+            status: 'offline'
+          },
+        ],
         services: [
           {
             id: 1,
@@ -149,9 +179,23 @@ export default defineComponent({
         }
       },
       {
-        name: 'Staging',
-        description: 'Staging environment',
+        name: 'Development',
+        description: 'Development environment',
         icon: 'mdi-cloud-sync-outline',
+        hosts: [
+          {
+            name: 'Host 1',
+            description: 'Host 1 description',
+            icon: 'mdi-server',
+            status: 'online'
+          },
+          {
+            name: 'Host 2',
+            description: 'Host 2 description',
+            icon: 'mdi-server',
+            status: 'online'
+          },
+        ],
         services: [
           {
             id: 1,
@@ -224,13 +268,9 @@ export default defineComponent({
             }
           }
         ],
-      },
-      {
-        name: 'Development',
-        description: 'Development environment',
-        icon: 'mdi-cloud-outline'
-      },
+      }
     ],
+    selectedEnvIndex: 0,
     selectedEnvironment: {
       name: '',
       description: '',
@@ -250,15 +290,28 @@ export default defineComponent({
         }
       ]
     },
+    selectedHost: {
+      name: '',
+      description: '',
+      icon: '',
+      status: ''
+    },
 
   }),
   mounted() {
+    this.selectedEnvironment = this.environments[this.selectedEnvIndex];
+    this.selectedHost = this.selectedEnvironment.hosts[0];
   },
   methods: {
     selectEnvironment(item) {
       console.log(item.services)
-      this.selectedEnvironment = item
-    }
+      this.selectedEnvironment = item;
+      this.selectedHost = item.hosts[0];
+    },
+    selectHost(item) {
+      console.log(item)
+      this.selectedHost = item
+    },
   }
 });
 </script>
