@@ -9,7 +9,7 @@
       <div class="ma-2 chips">
         <v-chip
             class="ma-1"
-            v-for="i in 10"
+            v-for="i in 7"
             :key="i"
             color="#5777FA"
             variant="outlined"
