@@ -23,15 +23,21 @@
 
             <div class="pa-4">
               <v-select
-                  :items="['Production', 'Development', 'Staging']"
+                  :items="store.getters.environments"
+                  item-title="title"
+                  item-value="value"
                   label="Environment"
                   density="comfortable"
+                  v-model="selectedEnvironmentId"
               ></v-select>
 
               <v-select
-                  :items="['Service 1', 'Service 2', 'Service 3']"
+                  :items="getServices()"
+                  item-title="title"
+                  item-value="value"
                   label="Service"
                   density="comfortable"
+                  v-model="selectedService"
               ></v-select>
             </div>
           </v-card>
@@ -124,7 +130,13 @@
             <v-list>
               <v-list-item>
                 <v-list-item-title>Cpu</v-list-item-title>
-                <line-chart class="pa-2" id="1" :labels="['1', '2']" :dataset="[40, 60]" width="300" height="100"/>
+                <line-chart
+                    class="pa-2"
+                    id="1"
+                    :labels="selectedService ? selectedService.load.labels : []"
+                    :dataset="selectedService ? selectedService.load.dataset : []"
+                    width="300"
+                    height="100"/>
               </v-list-item>
 
               <v-list-item>
@@ -221,6 +233,7 @@
 
 <script>
 import {defineComponent} from 'vue';
+import {useStore} from 'vuex';
 import accountCloud from "@/components/AccountCloud";
 import LineChart from "@/components/LineChart";
 import Actions from "@/components/Actions";
@@ -232,12 +245,27 @@ export default defineComponent({
     accountCloud
   },
   data: () => ({
+    store: useStore(),
+    selectedEnvironment: null,
+    selectedEnvironmentId: null,
+    selectedService: null,
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n Donec dapibus, tellus eu viverra porttitor, magna nibh accumsan arcu, quis aliquet ipsum quam a massa.\n Donec at tellus purus.\n Nulla eget gravida nibh.\n Aliquam sodales eget lectus vel fermentum.\n Donec sodales semper lectus, vitae viverra turpis hendrerit eget.\n Phasellus scelerisque iaculis ullamcorper.\n Cras vitae libero sed diam elementum feugiat eget quis tellus.\n Integer sed eros accumsan, laoreet nisl consequat, convallis tellus.\n"
   }),
   mounted() {
     this.setHeight()
   },
   methods: {
+    getServices() {
+      if (!this.selectedEnvironmentId) {
+        return []
+      }
+      return this.store.getters.environment(this.selectedEnvironmentId).services.map((service) => {
+        return {
+          title: service.name,
+          value: service
+        }
+      })
+    },
     setHeight() {
       let graphs = document.getElementById("graphs");
       let info = document.getElementById("info");
@@ -248,6 +276,11 @@ export default defineComponent({
       info.style.height = h + "px";
       // logs.style.height = h + "px";
       // actions.style.height = h + "px";
+    }
+  },
+  watch: {
+    selectedEnvironmentId: function () {
+      this.selectedService = null
     }
   }
 });

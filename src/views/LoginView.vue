@@ -20,6 +20,7 @@
         <div class="text-subtitle-1 text-medium-emphasis">Account</div>
 
         <v-text-field
+            v-model="email"
             density="comfortable"
             placeholder="Email address"
             prepend-inner-icon="mdi-email-outline"
@@ -39,6 +40,7 @@
         </div>
 
         <v-text-field
+            v-model="password"
             :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
             :type="visible ? 'text' : 'password'"
             density="comfortable"
@@ -100,6 +102,7 @@
 import {useStore} from "vuex";
 import {useRouter} from "vue-router";
 import logoFullURL from '../assets/logo_full.png'
+
 export default {
   name: "LoginView",
   data: () => ({
@@ -107,11 +110,15 @@ export default {
     store: useStore(),
     router: useRouter(),
     logoURL: logoFullURL,
+    email: '',
+    password: '',
   }),
   methods: {
-    login() {
-      this.store.dispatch("setLoggedIn", true);
-      this.router.push("/overview");
+    async login() {
+      let res = await this.store.dispatch("login", {email: this.email, password: this.password});
+      if (res) {
+        await this.router.push("/overview");
+      }
     },
     logout() {
       this.store.dispatch("setLoggedIn", false);
