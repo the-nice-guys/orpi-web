@@ -13,7 +13,7 @@
 
     <h3>Menu</h3>
     <div class="menu">
-      <router-link to="/" class="button">
+      <router-link to="/overview" class="button">
         <span class="material-icons">grid_view</span>
         <span class="text">Overview</span>
       </router-link>
@@ -34,9 +34,9 @@
     <div class="flex"></div>
 
     <div class="menu">
-      <router-link to="/settings" class="button">
+      <router-link to="/login" class="button" @click="store.state.loggedIn = false">
         <span class="material-icons">settings</span>
-        <span class="text">Settings</span>
+        <span class="text">Log out</span>
       </router-link>
     </div>
 
@@ -45,12 +45,17 @@
 
 <script setup>
 import { ref } from 'vue'
+import { defineEmits } from 'vue'
 import logoURL from '../assets/logo_o.png'
 import logoFullURL from '../assets/logo_full.png'
+import { useStore } from 'vuex'
+const store = useStore()
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
+const emit = defineEmits(['toggle'])
 const ToggleMenu = () => {
   is_expanded.value = !is_expanded.value
   localStorage.setItem("is_expanded", is_expanded.value)
+  emit('toggle')
 }
 </script>
 

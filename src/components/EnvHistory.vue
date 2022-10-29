@@ -5,7 +5,7 @@
       max-height="300"
   >
     <v-card-title>History</v-card-title>
-    <v-timeline align="start" style="overflow: scroll" class="pa-4">
+    <v-timeline align="start" style="overflow: scroll" class="px-4 pb-8">
       <v-timeline-item
         dot-color="#5777FA">
         <template v-slot:opposite>

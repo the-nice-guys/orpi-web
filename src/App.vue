@@ -2,28 +2,21 @@
   <v-app>
     <div class="app">
 
-      <SideBar class="elevation-4" style="z-index: 3; box-shadow: black"/>
+      <SideBar class="elevation-4" style="z-index: 3; box-shadow: black" v-if="store.getters.loggedIn"/>
       <router-view style="z-index: 1"/>
     </div>
-    <v-sheet
-        class="bg-sheet"
-        color="#5777FAFF"
-        height="18%"
-        width="100%"
-    >
-    </v-sheet>
   </v-app>
 
 </template>
 
 <script>
-// test
+import {useStore} from "vuex";
 import SideBar from "@/components/SideBar";
 export default {
   name: 'App',
   components: {SideBar},
   data: () => ({
-    //
+    store: useStore(),
   }),
 }
 </script>

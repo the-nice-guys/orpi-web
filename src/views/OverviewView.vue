@@ -1,6 +1,12 @@
 <template>
   <main class="Overview">
-
+    <v-sheet
+        class="bg-sheet"
+        color="#5777FAFF"
+        height="18%"
+        width="100%"
+    >
+    </v-sheet>
     <v-container fluid>
       <v-row justify="end">
           <account-cloud class="ma-2 mr-16 elevation-2"/>
@@ -49,6 +55,7 @@
 
 <script>
 import {defineComponent} from 'vue';
+import {useStore} from 'vuex';
 
 // Components
 import accountCloud from "@/components/AccountCloud";
@@ -72,6 +79,7 @@ export default defineComponent({
     accountCloud
   },
   data: () => ({
+    store: useStore(),
     open: ['Users'],
     admins: [
       ['Management', 'mdi-account-multiple-outline'],
@@ -330,3 +338,12 @@ export default defineComponent({
 });
 </script>
 
+<style scoped>
+.bg-sheet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+</style>
