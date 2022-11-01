@@ -6,8 +6,14 @@
       height="100%">
     <v-card-title>Hosts of <span style="color: #5777FA">{{env.name}}</span> </v-card-title>
 
+    <div class="text-center ma-4" v-if="store.getters.environments.length == 0">
+      <v-progress-circular color="#5777FA" indeterminate :size="94"></v-progress-circular>
+    </div>
+
     <v-list
-      :selected="['Host 1']">
+      :selected="['Host 1']"
+      v-else
+    >
         <v-list-item
             v-for="item in env.hosts"
             :key="item.name"
@@ -26,6 +32,7 @@
 </template>
 
 <script>
+import {useStore} from "vuex";
 export default {
   name: "HostsView",
   props: {
@@ -34,6 +41,7 @@ export default {
   data: () => ({
     selectedHost: null,
     selectedHostIndex: 0,
+    store: useStore()
   }),
   mounted() {
     //this.selectedHost = this.env.hosts[this.selectedHostIndex]

@@ -14,7 +14,7 @@
       <v-row class="mt-8" justify="start">
         <v-col xs12 md6 lg6 xl4 class="mb-4">
           <Environments
-              :environments="environments"
+              :environments="store.state.environments"
               v-on:select-environment="selectEnvironment"
               :selected-environment="selectedEnvironment"/>
         </v-col>
@@ -27,7 +27,7 @@
                   v-on:select-host="selectHost"/>
             </v-col>
             <v-col class="mx-2">
-              <HostServices :host="selectedHost"/>
+              <HostServices :host="selectedHost" :services="selectedEnvironment.services"/>
             </v-col>
           </v-row>
 
@@ -41,7 +41,7 @@
         <v-col cols="8">
           <EnvironmentInformation
               :full-info-clicked="fullInfoClicked"
-              :open="open"
+              :open="true"
               :selected-environment="selectedEnvironment"/>
         </v-col>
 
@@ -80,7 +80,6 @@ export default defineComponent({
   },
   data: () => ({
     store: useStore(),
-    open: ['Users'],
     environments: [],
     selectedEnvIndex: 0,
     selectedEnvironment: {
@@ -111,8 +110,10 @@ export default defineComponent({
 
   }),
   async mounted() {
-    this.environments = await this.store.dispatch('getUserEnvironments');
-    this.selectedEnvironment = this.environments[this.selectedEnvIndex];
+    if (this.store.state.environments.length === 0) {
+      this.environments = await this.store.dispatch('getUserEnvironments')
+    }
+    this.selectedEnvironment = this.store.state.environments[this.selectedEnvIndex];
     this.selectedHost = this.selectedEnvironment.hosts[0];
   },
   methods: {

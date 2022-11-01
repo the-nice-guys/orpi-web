@@ -5,17 +5,21 @@
       height="100%">
     <v-card-title>Services of <span style="color: #5777FA">{{host.name}}</span></v-card-title>
 
-    <div>
+    <div class="text-center ma-4" v-if="store.getters.environments.length == 0">
+      <v-progress-circular color="#5777FA" indeterminate :size="94"></v-progress-circular>
+    </div>
+
+    <div v-else>
       <div class="ma-2 chips">
         <v-chip
             class="ma-1"
-            v-for="i in 7"
+            v-for="(item, i) in host.services"
             :key="i"
             color="#5777FA"
             variant="outlined"
             prepend-icon="mdi-server"
         >
-          <span>Service {{i}}</span>
+          <span>{{getServiceName(item)}}</span>
         </v-chip>
       </div>
     </div>
@@ -23,13 +27,21 @@
 </template>
 
 <script>
+import {useStore} from "vuex";
 export default {
   name: "HostServices",
   props: {
-    host: Object
+    host: Object,
+    services: Array
   },
   data: () => ({
+    store: useStore()
   }),
+  methods: {
+    getServiceName(id) {
+      return this.services.find(s => s.id === id).name
+    }
+  }
 }
 </script>
 

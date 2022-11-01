@@ -54,7 +54,7 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title>Uptime</v-list-item-title>
-                    <v-list-item-subtitle>10d 20h 04m</v-list-item-subtitle>
+                    <v-list-item-subtitle>{{selectedService ? selectedService.uptime : 'Service not selected'}}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -75,19 +75,19 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title>Average Cpu Usage</v-list-item-title>
-                    <v-list-item-subtitle>50%</v-list-item-subtitle>
+                    <v-list-item-subtitle>{{selectedService ? selectedService.avgCpu : 'Service not selected'}}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title>Average Network Usage</v-list-item-title>
-                    <v-list-item-subtitle>300 mb/s</v-list-item-subtitle>
+                    <v-list-item-subtitle>{{selectedService ? selectedService.avgNetwork : 'Service not selected'}}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title>Average Memory Usage</v-list-item-title>
-                    <v-list-item-subtitle>2,45/4 G</v-list-item-subtitle>
+                    <v-list-item-subtitle>{{selectedService ? selectedService.avgNetwork : 'Service not selected'}}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -96,19 +96,19 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title>Peak Cpu Usage</v-list-item-title>
-                    <v-list-item-subtitle>90%</v-list-item-subtitle>
+                    <v-list-item-subtitle>{{selectedService ? selectedService.peakCpu : 'Service not selected'}}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title>Peak Network Usage</v-list-item-title>
-                    <v-list-item-subtitle>534 mb/s</v-list-item-subtitle>
+                    <v-list-item-subtitle>{{selectedService ? selectedService.peakNetwork : 'Service not selected'}}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title>Peak Memory Usage</v-list-item-title>
-                    <v-list-item-subtitle>3,89/4 G</v-list-item-subtitle>
+                    <v-list-item-subtitle>{{selectedService ? selectedService.peakMem : 'Service not selected'}}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -133,20 +133,32 @@
                 <line-chart
                     class="pa-2"
                     id="1"
-                    :labels="selectedService ? selectedService.load.labels : []"
-                    :dataset="selectedService ? selectedService.load.dataset : []"
+                    :labels="selectedService ? selectedService.load.cpu.labels : []"
+                    :dataset="selectedService ? selectedService.load.cpu.dataset : []"
                     width="300"
                     height="100"/>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-title>Network</v-list-item-title>
-                <line-chart class="pa-2" id="2" :labels="['1', '2', '3']" :dataset="[30, 230, 0]" width="300" height="100"/>
+                <line-chart
+                    class="pa-2"
+                    id="2"
+                    :labels="selectedService ? selectedService.load.network.labels : []"
+                    :dataset="selectedService ? selectedService.load.network.dataset : []"
+                    width="300"
+                    height="100"/>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-title>Memory</v-list-item-title>
-                <line-chart class="pa-2" id="3" :labels="['1', '2', '3']" :dataset="[100, 120, 105]" width="300" height="100"/>
+                <line-chart
+                    class="pa-2"
+                    id="3"
+                    :labels="selectedService ? selectedService.load.memory.labels : []"
+                    :dataset="selectedService ? selectedService.load.memory.dataset : []"
+                    width="300"
+                    height="100"/>
               </v-list-item>
             </v-list>
 

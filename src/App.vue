@@ -12,12 +12,19 @@
 <script>
 import {useStore} from "vuex";
 import SideBar from "@/components/SideBar";
+import {useRouter} from "vue-router";
 export default {
   name: 'App',
   components: {SideBar},
   data: () => ({
     store: useStore(),
+    router: useRouter()
   }),
+  mounted() {
+    if (!this.store.state.loggedIn) {
+      this.router.push('/login')
+    }
+  }
 }
 </script>
 <style lang="scss">

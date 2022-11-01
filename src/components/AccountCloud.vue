@@ -8,17 +8,20 @@
       <span class="white--text text-h5">AG</span>
     </v-avatar>
     <div class="ma-4 info">
-      <span class="name">Andrey Grechko</span>
+      <span class="name">{{store.getters.user.name}}</span>
       <span class="balance"> Balance: 461$</span>
     </div>
   </div>
 </template>
 
 <script>
+import {useStore} from "vuex";
+
 export default {
   name: "AccountCloud",
   data: () => ({
-    expanded: false
+    expanded: false,
+    store: useStore(),
   }),
 }
 </script>

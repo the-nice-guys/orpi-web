@@ -29,6 +29,7 @@ let envs = [
                 icon: 'mdi-server',
                 status: 'online',
                 cost: '$10.00',
+                services: [1]
             },
             {
                 name: 'Host 2',
@@ -36,6 +37,7 @@ let envs = [
                 icon: 'mdi-server',
                 status: 'online',
                 cost: '$5.60',
+                services: [2]
             },
             {
                 name: 'Host 3',
@@ -43,6 +45,7 @@ let envs = [
                 icon: 'mdi-server',
                 status: 'offline',
                 cost: '$0.00',
+                services: [3]
             },
         ],
         services: [
@@ -50,9 +53,29 @@ let envs = [
                 id: 1,
                 name: 'Service 1',
                 description: 'Service 1 description',
+                uptime: '13d 12h 06m',
+                avgCpu: '32%',
+                avgMem: '2,45/4 GB',
+                avgNetwork: '300 mb/s',
+                peakCpu: '80%',
+                peakMem: '3,45/4 GB',
+                peakNetwork: '500 mb/s',
+                recentLogs: "lorem ipsum dolor sit amet",
+                version: '1.2.0',
+                lastSnapshot: '2020.10.10 10:10:10',
                 load: {
-                    labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
-                    dataset: [65, 59, 80, 81, 56, 55, 40, 50, 60, 70],
+                    cpu: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    },
+                    network: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    },
+                    memory: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    }
                 },
                 options: {
                     ports: [
@@ -85,9 +108,29 @@ let envs = [
                 id: 2,
                 name: 'Service 2',
                 description: 'Service 2 description',
+                uptime: '10d 20h 04m',
+                avgCpu: '50%',
+                avgMem: '2,45/4 GB',
+                avgNetwork: '300 mb/s',
+                peakCpu: '80%',
+                peakMem: '3,45/4 GB',
+                peakNetwork: '500 mb/s',
+                recentLogs: "lorem ipsum dolor sit amet",
+                version: '1.0.0',
+                lastSnapshot: '2020.10.10 10:10:10',
                 load: {
-                    labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
-                    dataset: [65, 59, 80, 81, 56, 55, 40, 50, 60, 70],
+                    cpu: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    },
+                    network: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    },
+                    memory: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    }
                 },
                 options: {
                     ports: [
@@ -120,9 +163,29 @@ let envs = [
                 id: 3,
                 name: 'Service 3',
                 description: 'Service 3 description',
+                uptime: '10d 20h 04m',
+                avgCpu: '50%',
+                avgMem: '2,45/4 GB',
+                avgNetwork: '300 mb/s',
+                peakCpu: '80%',
+                peakMem: '3,45/4 GB',
+                peakNetwork: '500 mb/s',
+                recentLogs: "lorem ipsum dolor sit amet",
+                version: '1.0.0',
+                lastSnapshot: '2020.10.10 10:10:10',
                 load: {
-                    labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
-                    dataset: [65, 59, 80, 81, 56, 55, 40, 50, 60, 70],
+                    cpu: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    },
+                    network: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    },
+                    memory: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    }
                 },
                 options: {
                     ports: [
@@ -169,23 +232,45 @@ let envs = [
                 name: 'Host 1',
                 description: 'Host 1 description',
                 icon: 'mdi-server',
-                status: 'online'
+                status: 'online',
+                services: [4]
             },
             {
                 name: 'Host 2',
                 description: 'Host 2 description',
                 icon: 'mdi-server',
-                status: 'online'
+                status: 'online',
+                services: [5]
             },
         ],
         services: [
             {
-                id: 1,
+                id: 4,
                 name: 'Service 1',
                 description: 'Service 1 description',
+                uptime: '10d 20h 04m',
+                avgCpu: '50%',
+                avgMem: '2,45/4 GB',
+                avgNetwork: '300 mb/s',
+                peakCpu: '80%',
+                peakMem: '3,45/4 GB',
+                peakNetwork: '500 mb/s',
+                recentLogs: "lorem ipsum dolor sit amet",
+                version: '1.0.0',
+                lastSnapshot: '2020.10.10 10:10:10',
                 load: {
-                    labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
-                    dataset: [6, 59, 80, 3, 56, 55, 0, 0, 0, 70],
+                    cpu: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    },
+                    network: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    },
+                    memory: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    }
                 },
                 options: {
                     ports: [
@@ -215,12 +300,32 @@ let envs = [
                 }
             },
             {
-                id: 2,
+                id: 5,
                 name: 'Service 2',
                 description: 'Service 2 description',
+                uptime: '10d 20h 04m',
+                avgCpu: '50%',
+                avgMem: '2,45/4 GB',
+                avgNetwork: '300 mb/s',
+                peakCpu: '80%',
+                peakMem: '3,45/4 GB',
+                peakNetwork: '500 mb/s',
+                recentLogs: "lorem ipsum dolor sit amet",
+                version: '1.0.0',
+                lastSnapshot: '2020.10.10 10:10:10',
                 load: {
-                    labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
-                    dataset: [65, 59, 80, 81, 56, 55, 40, 50, 60, 70],
+                    cpu: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    },
+                    network: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    },
+                    memory: {
+                        labels: Array.from({length: 10}, () => new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString()),
+                        dataset: Array.from({length: 10}, () => Math.floor(Math.random() * 100)),
+                    }
                 },
                 options: {
                     ports: [
@@ -272,7 +377,7 @@ app.post('/login', (req, res) => {
 app.get("/getUserEnvironments", (req, res) => {
     setTimeout(() => {
         res.status(200).json(envs);
-    }, 0.5);
+    }, 2000);
 })
 
 // start server

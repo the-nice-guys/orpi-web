@@ -6,7 +6,11 @@
   >
     <v-card-title>Information</v-card-title>
 
-    <v-list density="compact" style="height: 85%; overflow: scroll">
+    <div class="text-center ma-4" v-if="store.getters.environments.length == 0">
+      <v-progress-circular color="#5777FA" indeterminate :size="94"></v-progress-circular>
+    </div>
+
+    <v-list density="compact" style="height: 85%; overflow: scroll" v-else>
       <v-list-item prepend-icon="mdi-clock" title="Uptime">
         <v-list-item-subtitle>11d 23h 06m</v-list-item-subtitle>
       </v-list-item>
@@ -71,11 +75,15 @@
   </v-card>
 </template>
 <script>
+import {useStore} from "vuex";
 export default {
   name: 'EnvironmentInformation',
   props: {
     fullInfoClicked: {},
     selectedEnvironment: {}
-  }
+  },
+  data: () => ({
+    store: useStore()
+  })
 }
 </script>

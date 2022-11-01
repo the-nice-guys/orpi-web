@@ -3,9 +3,14 @@
       elevation="2"
       style="border-radius: 24px"
       max-height="300"
+      width="100%"
   >
     <v-card-title>History</v-card-title>
-    <v-timeline align="start" style="overflow: scroll" class="px-4 pb-8">
+
+    <div class="text-center ma-4" v-if="store.getters.environments.length == 0">
+      <v-progress-circular color="#5777FA" indeterminate :size="94"></v-progress-circular>
+    </div>
+    <v-timeline align="start" style="overflow: scroll" class="px-4 pb-8" v-else>
       <v-timeline-item
         dot-color="#5777FA">
         <template v-slot:opposite>
@@ -51,8 +56,12 @@
 </template>
 
 <script>
+import {useStore} from "vuex";
 export default {
-  name: "EnvHistory"
+  name: "EnvHistory",
+  data: () => ({
+    store: useStore()
+  }),
 }
 </script>
 

@@ -7,8 +7,13 @@
   >
     <v-card-title>Environments</v-card-title>
 
+    <div class="text-center ma-4" v-if="store.getters.environments.length == 0">
+      <v-progress-circular color="#5777FA" indeterminate :size="94"></v-progress-circular>
+    </div>
+
     <v-list
         :selected="[selectedEnvironment.name]"
+        v-else
     >
       <v-list-item
           v-for="item in environments"
@@ -29,6 +34,8 @@
   </v-card>
 </template>
 <script>
+import {useStore} from "vuex";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Environments',
@@ -36,6 +43,9 @@ export default {
     environments: {},
     selectedEnvironment: {}
   },
+  data: () => ({
+    store: useStore()
+  }),
   methods: {
     selectEnvironment(item) {
       this.$emit('select-environment', item)
